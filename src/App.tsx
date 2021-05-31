@@ -1,24 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { CoWorkers } from './CoWorkers';
+
+export type coWorcerType = {
+  id: number;
+  firstName: string;
+  lastName: string;
+};
+
+let initialState: Array<coWorcerType> = [
+  { id: 1, firstName: 'Maxim', lastName: 'Myasnikov' },
+  { id: 2, firstName: 'John', lastName: 'Boo' },
+  { id: 3, firstName: 'Michael', lastName: 'Robinson' },
+  { id: 4, firstName: 'Alexandr', lastName: 'Robson' },
+];
 
 function App() {
+  const [coWorcersList, setCoWorcwersList] =
+    useState<Array<coWorcerType>>(initialState);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <CoWorkers coWorcersList={coWorcersList} />
     </div>
   );
 }
