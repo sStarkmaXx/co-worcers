@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { CoWorkers } from './components/CoWorkers';
 import Header from './components/Header';
+import { ModalWindow } from './components/ModalWindow';
 
 export type coWorcerType = {
   id: number;
@@ -21,6 +22,7 @@ function App() {
     useState<Array<coWorcerType>>(initialState);
   return (
     <div className="App">
+      <ModalWindow />
       <Header />
       <CoWorkers coWorcersList={coWorcersList} />
     </div>
