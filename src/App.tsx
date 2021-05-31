@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './App.css';
-import { CoWorkers } from './components/CoWorkers';
-import Header from './components/Header';
-import { ModalWindow } from './components/ModalWindow';
+import Header from './components/header/Header';
+import { ModalWindow } from './components/modalwindow/ModalWindow';
+import { Persons } from './components/persons/Persons';
 
-export type coWorcerType = {
+export type PersonType = {
   id: number;
   firstName: string;
   lastName: string;
@@ -14,7 +14,7 @@ export type ModalWindowsState = {
   title: string;
 };
 
-let initialState: Array<coWorcerType> = [
+let initialState: Array<PersonType> = [
   { id: 1, firstName: 'Maxim', lastName: 'Myasnikov' },
   { id: 2, firstName: 'John', lastName: 'Boo' },
   { id: 3, firstName: 'Michael', lastName: 'Robinson' },
@@ -22,22 +22,22 @@ let initialState: Array<coWorcerType> = [
 ];
 
 function App() {
-  const [coWorcersList, setCoWorcwersList] =
-    useState<Array<coWorcerType>>(initialState);
+  const [listOfPersons, setListOfPersons] =
+    useState<Array<PersonType>>(initialState);
 
   const [modalWindowState, setModalWindowState] = useState<ModalWindowsState>({
     isOpen: false,
     title: '',
   });
-  function editCoWorker() {
+  function editPerson() {
     setModalWindowState({ isOpen: true, title: 'Редактирование сотрудника' });
   }
   function hideModalWindow() {
     setModalWindowState({ isOpen: false, title: '' });
   }
-  function delCoWorker(id: number) {
-    let newListOfCoworkers = coWorcersList.filter((c) => c.id !== id);
-    setCoWorcwersList(newListOfCoworkers);
+  function delPerson(id: number) {
+    let newListOfCoworkers = listOfPersons.filter((c) => c.id !== id);
+    setListOfPersons(newListOfCoworkers);
   }
   return (
     <div className="App">
@@ -46,10 +46,10 @@ function App() {
         hideModalWindow={hideModalWindow}
       />
       <Header />
-      <CoWorkers
-        coWorcersList={coWorcersList}
-        editCoWorker={editCoWorker}
-        delCoWorker={delCoWorker}
+      <Persons
+        listOfPersons={listOfPersons}
+        editPerson={editPerson}
+        delPerson={delPerson}
       />
     </div>
   );

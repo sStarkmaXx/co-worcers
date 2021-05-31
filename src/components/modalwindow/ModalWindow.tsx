@@ -1,4 +1,4 @@
-import { ModalWindowsState } from '../App';
+import { ModalWindowsState } from '../../App';
 import css from './ModalWindow.module.css';
 
 export type ModalWindowPropsType = {
