@@ -56,7 +56,7 @@ function App() {
     let newId = listOfPersons.length + 1;
     let newPerson: PersonType = { id: newId, firstName, lastName };
     let newListOfPersons: Array<PersonType> = listOfPersons.slice();
-    newListOfPersons.push(newPerson);
+    newListOfPersons.unshift(newPerson);
     setListOfPersons(newListOfPersons);
     setFirstName('');
     setLastName('');
@@ -100,7 +100,11 @@ function App() {
         hideModalWindow={hideModalWindow}
         createFirstName={createFirstName}
         createLastName={createLastName}
-        func={firstName === '' ? addPerson : saveChangedPerson}
+        func={
+          modalWindowState.title === 'Создание сотрудника'
+            ? addPerson
+            : saveChangedPerson
+        }
       />
       <Header />
       <Persons

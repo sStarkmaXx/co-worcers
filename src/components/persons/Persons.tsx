@@ -1,5 +1,6 @@
 import { PersonType } from '../../App';
 import { Person } from '../person/Person';
+import css from './Persons.module.css';
 
 export type CoWorkersPropsType = {
   listOfPersons: Array<PersonType>;
@@ -22,5 +23,5 @@ export const Persons: React.FC<CoWorkersPropsType> = ({
       />
     );
   });
-  return <div className="coworkers">{person}</div>;
+  return <div className={css.persons}>{person}</div>;
 };

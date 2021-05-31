@@ -1,6 +1,6 @@
 .header {
   display: flex;
-  height: 60px;
+  min-height: 60px;
   padding-left: 50px;
   background-color: #b7b7b7;
   border: solid 1px #676767;
