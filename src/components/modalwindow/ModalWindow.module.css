@@ -35,11 +35,17 @@
 }
 .back {
   display: flex;
-  align-items: center;
   height: 50px;
-  margin-left: 20px;
+  padding-left: 20px;
+  align-content: center;
+}
+.back button {
+  background-color: rgba(0, 0, 139, 0);
+  border: none;
+  color: black;
+}
+.back button:hover {
   color: blue;
-  font-size: 15px;
 }
 .footer {
   display: flex;
@@ -53,6 +59,7 @@
   background-color: rgb(83, 177, 240);
   border: none;
   border-radius: 3px;
+  color: aliceblue;
 }
 input {
   width: 300px;

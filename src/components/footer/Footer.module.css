@@ -1,0 +1,16 @@
+.footer {
+  display: flex;
+  margin-top: auto;
+  height: 60px;
+  padding-left: 20px;
+  background-color: #b7b7b7;
+  border: solid 1px #676767;
+  align-items: center;
+}
+.footer button {
+  height: 40px;
+  background-color: rgb(83, 177, 240);
+  border: none;
+  border-radius: 3px;
+  color: aliceblue;
+}

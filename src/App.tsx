@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import './App.css';
+import { Footer } from './components/footer/Footer';
 import Header from './components/header/Header';
 import { ModalWindow } from './components/modalwindow/ModalWindow';
 import { Persons } from './components/persons/Persons';
@@ -9,6 +10,7 @@ export type PersonType = {
   firstName: string;
   lastName: string;
 };
+
 export type ModalWindowsState = {
   isOpen: boolean;
   title: string;
@@ -29,12 +31,39 @@ function App() {
     isOpen: false,
     title: '',
   });
-  function editPerson() {
-    setModalWindowState({ isOpen: true, title: 'Редактирование сотрудника' });
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+
+  function createFirstName(e: ChangeEvent<HTMLInputElement>) {
+    setFirstName(e.currentTarget.value);
   }
+
+  function createLastName(e: ChangeEvent<HTMLInputElement>) {
+    setLastName(e.currentTarget.value);
+  }
+
   function hideModalWindow() {
     setModalWindowState({ isOpen: false, title: '' });
   }
+  function addPerson() {
+    setModalWindowState({ isOpen: true, title: 'Создание сотрудника' });
+  }
+
+  function savePerson() {
+    let newId = listOfPersons.length + 1;
+    let newPerson: PersonType = { id: newId, firstName, lastName };
+    let newListOfPersons: Array<PersonType> = listOfPersons.slice();
+    newListOfPersons.push(newPerson);
+    setListOfPersons(newListOfPersons);
+    setFirstName('');
+    setLastName('');
+    setModalWindowState({ isOpen: false, title: '' });
+  }
+
+  function editPerson() {
+    setModalWindowState({ isOpen: true, title: 'Редактирование сотрудника' });
+  }
+
   function delPerson(id: number) {
     let newListOfCoworkers = listOfPersons.filter((c) => c.id !== id);
     setListOfPersons(newListOfCoworkers);
@@ -42,8 +71,13 @@ function App() {
   return (
     <div className="App">
       <ModalWindow
+        firstName={firstName}
+        lastName={lastName}
         modalWindowState={modalWindowState}
         hideModalWindow={hideModalWindow}
+        createFirstName={createFirstName}
+        createLastName={createLastName}
+        savePerson={savePerson}
       />
       <Header />
       <Persons
@@ -51,6 +85,7 @@ function App() {
         editPerson={editPerson}
         delPerson={delPerson}
       />
+      <Footer addPerson={addPerson} />
     </div>
   );
 }
