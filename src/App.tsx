@@ -9,6 +9,10 @@ export type coWorcerType = {
   firstName: string;
   lastName: string;
 };
+export type ModalWindowsState = {
+  isOpen: boolean;
+  title: string;
+};
 
 let initialState: Array<coWorcerType> = [
   { id: 1, firstName: 'Maxim', lastName: 'Myasnikov' },
@@ -20,11 +24,25 @@ let initialState: Array<coWorcerType> = [
 function App() {
   const [coWorcersList, setCoWorcwersList] =
     useState<Array<coWorcerType>>(initialState);
+
+  const [modalWindowState, setModalWindowState] = useState<ModalWindowsState>({
+    isOpen: false,
+    title: '',
+  });
+  function editCoWorker() {
+    setModalWindowState({ isOpen: true, title: 'Редактирование сотрудника' });
+  }
+  function hideModalWindow() {
+    setModalWindowState({ isOpen: false, title: '' });
+  }
   return (
     <div className="App">
-      <ModalWindow />
+      <ModalWindow
+        modalWindowState={modalWindowState}
+        hideModalWindow={hideModalWindow}
+      />
       <Header />
-      <CoWorkers coWorcersList={coWorcersList} />
+      <CoWorkers coWorcersList={coWorcersList} editCoWorker={editCoWorker} />
     </div>
   );
 }
