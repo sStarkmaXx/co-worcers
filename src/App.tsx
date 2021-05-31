@@ -33,6 +33,7 @@ function App() {
   });
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
+  const [selectPersonId, setSelectPersonId] = useState<number>(0);
 
   function createFirstName(e: ChangeEvent<HTMLInputElement>) {
     setFirstName(e.currentTarget.value);
@@ -44,12 +45,14 @@ function App() {
 
   function hideModalWindow() {
     setModalWindowState({ isOpen: false, title: '' });
+    setFirstName('');
+    setLastName('');
   }
-  function addPerson() {
+  function openAddPersonWindow() {
     setModalWindowState({ isOpen: true, title: 'Создание сотрудника' });
   }
 
-  function savePerson() {
+  function addPerson() {
     let newId = listOfPersons.length + 1;
     let newPerson: PersonType = { id: newId, firstName, lastName };
     let newListOfPersons: Array<PersonType> = listOfPersons.slice();
@@ -60,13 +63,33 @@ function App() {
     setModalWindowState({ isOpen: false, title: '' });
   }
 
-  function editPerson() {
+  function openEditPersonWindow(id: number) {
     setModalWindowState({ isOpen: true, title: 'Редактирование сотрудника' });
+    let selectPerson = listOfPersons.find((pers) => pers.id === id);
+    setFirstName(selectPerson!.firstName);
+    setLastName(selectPerson!.lastName);
+    setSelectPersonId(id);
+  }
+
+  function saveChangedPerson() {
+    let changedPersone: PersonType = {
+      id: selectPersonId,
+      firstName: firstName,
+      lastName: lastName,
+    };
+    let newListWithCangedPerson = listOfPersons.filter(
+      (c) => c.id !== selectPersonId
+    );
+    newListWithCangedPerson.push(changedPersone);
+    setListOfPersons(newListWithCangedPerson);
+    setFirstName('');
+    setLastName('');
+    setModalWindowState({ isOpen: false, title: '' });
   }
 
   function delPerson(id: number) {
-    let newListOfCoworkers = listOfPersons.filter((c) => c.id !== id);
-    setListOfPersons(newListOfCoworkers);
+    let newListOfPersons = listOfPersons.filter((c) => c.id !== id);
+    setListOfPersons(newListOfPersons);
   }
   return (
     <div className="App">
@@ -77,15 +100,15 @@ function App() {
         hideModalWindow={hideModalWindow}
         createFirstName={createFirstName}
         createLastName={createLastName}
-        savePerson={savePerson}
+        func={firstName === '' ? addPerson : saveChangedPerson}
       />
       <Header />
       <Persons
         listOfPersons={listOfPersons}
-        editPerson={editPerson}
+        openEditPersonWindow={openEditPersonWindow}
         delPerson={delPerson}
       />
-      <Footer addPerson={addPerson} />
+      <Footer openAddPersonWindow={openAddPersonWindow} />
     </div>
   );
 }

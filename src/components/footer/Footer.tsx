@@ -1,13 +1,13 @@
 import css from './Footer.module.css';
 
 export type FooterPropsType = {
-  addPerson: () => void;
+  openAddPersonWindow: () => void;
 };
 
-export const Footer: React.FC<FooterPropsType> = ({ addPerson }) => {
+export const Footer: React.FC<FooterPropsType> = ({ openAddPersonWindow }) => {
   return (
     <div className={css.footer}>
-      <button onClick={addPerson}>Добавить сотрудника</button>
+      <button onClick={openAddPersonWindow}>Добавить сотрудника</button>
     </div>
   );
 };

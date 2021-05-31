@@ -9,7 +9,7 @@ export type ModalWindowPropsType = {
   hideModalWindow: () => void;
   createFirstName: (e: ChangeEvent<HTMLInputElement>) => void;
   createLastName: (e: ChangeEvent<HTMLInputElement>) => void;
-  savePerson: () => void;
+  func: () => void;
 };
 
 export const ModalWindow: React.FC<ModalWindowPropsType> = ({
@@ -19,7 +19,7 @@ export const ModalWindow: React.FC<ModalWindowPropsType> = ({
   hideModalWindow,
   createFirstName,
   createLastName,
-  savePerson,
+  func,
 }) => {
   let style = {};
   modalWindowState.isOpen && (style = { display: 'flex' });
@@ -44,7 +44,7 @@ export const ModalWindow: React.FC<ModalWindowPropsType> = ({
           />
         </div>
         <div className={css.footer}>
-          <button onClick={savePerson}>Сохранить</button>
+          <button onClick={func}>Сохранить</button>
         </div>
       </div>
     </div>

@@ -3,13 +3,13 @@ import { Person } from '../person/Person';
 
 export type CoWorkersPropsType = {
   listOfPersons: Array<PersonType>;
-  editPerson: () => void;
+  openEditPersonWindow: (id: number) => void;
   delPerson: (id: number) => void;
 };
 
 export const Persons: React.FC<CoWorkersPropsType> = ({
   listOfPersons,
-  editPerson,
+  openEditPersonWindow,
   delPerson,
 }) => {
   let person = listOfPersons.map((pers) => {
@@ -17,7 +17,7 @@ export const Persons: React.FC<CoWorkersPropsType> = ({
       <Person
         key={pers.id}
         person={pers}
-        editPerson={editPerson}
+        openEditPersonWindow={openEditPersonWindow}
         delPerson={delPerson}
       />
     );

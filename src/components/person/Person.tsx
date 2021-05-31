@@ -3,13 +3,13 @@ import { PersonType } from '../../App';
 
 export type PersonPropsType = {
   person: PersonType;
-  editPerson: () => void;
+  openEditPersonWindow: (id: number) => void;
   delPerson: (id: number) => void;
 };
 
 export const Person: React.FC<PersonPropsType> = ({
   person,
-  editPerson,
+  openEditPersonWindow,
   delPerson,
 }) => {
   let url =
@@ -22,7 +22,9 @@ export const Person: React.FC<PersonPropsType> = ({
       <div className={css.name}>{person.firstName}</div>
       <div className={css.name}>{person.lastName}</div>
       <div className={css.btns}>
-        <button onClick={editPerson}>редактировать</button>
+        <button onClick={() => openEditPersonWindow(person.id)}>
+          редактировать
+        </button>
         <button onClick={() => delPerson(person.id)}>удалить</button>
       </div>
     </div>
