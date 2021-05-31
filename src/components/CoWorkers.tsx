@@ -4,19 +4,21 @@ import { CoWorker } from './CoWorker';
 export type CoWorkersPropsType = {
   coWorcersList: Array<coWorcerType>;
   editCoWorker: () => void;
+  delCoWorker: (id: number) => void;
 };
 
 export const CoWorkers: React.FC<CoWorkersPropsType> = ({
   coWorcersList,
   editCoWorker,
+  delCoWorker,
 }) => {
   let coWorcer = coWorcersList.map((c) => {
     return (
       <CoWorker
         key={c.id}
-        firstName={c.firstName}
-        lastName={c.lastName}
+        coWorker={c}
         editCoWorker={editCoWorker}
+        delCoWorker={delCoWorker}
       />
     );
   });

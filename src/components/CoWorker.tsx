@@ -1,15 +1,16 @@
+import { coWorcerType } from '../App';
 import css from './CoWorker.module.css';
 
 export type CoWorkerPropsType = {
-  firstName: string;
-  lastName: string;
+  coWorker: coWorcerType;
   editCoWorker: () => void;
+  delCoWorker: (id: number) => void;
 };
 
 export const CoWorker: React.FC<CoWorkerPropsType> = ({
-  firstName,
-  lastName,
+  coWorker,
   editCoWorker,
+  delCoWorker,
 }) => {
   let url =
     'https://www.meme-arsenal.com/memes/0f8b809d93c3e2b53cc0badc164a520a.jpg';
@@ -18,11 +19,11 @@ export const CoWorker: React.FC<CoWorkerPropsType> = ({
       <div className={css.img}>
         <img src={url} alt="" />
       </div>
-      <div className={css.name}>{firstName}</div>
-      <div className={css.name}>{lastName}</div>
+      <div className={css.name}>{coWorker.firstName}</div>
+      <div className={css.name}>{coWorker.lastName}</div>
       <div className={css.btns}>
         <button onClick={editCoWorker}>редактировать</button>
-        <button>удалить</button>
+        <button onClick={() => delCoWorker(coWorker.id)}>удалить</button>
       </div>
     </div>
   );

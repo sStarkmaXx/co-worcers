@@ -35,6 +35,10 @@ function App() {
   function hideModalWindow() {
     setModalWindowState({ isOpen: false, title: '' });
   }
+  function delCoWorker(id: number) {
+    let newListOfCoworkers = coWorcersList.filter((c) => c.id !== id);
+    setCoWorcwersList(newListOfCoworkers);
+  }
   return (
     <div className="App">
       <ModalWindow
@@ -42,7 +46,11 @@ function App() {
         hideModalWindow={hideModalWindow}
       />
       <Header />
-      <CoWorkers coWorcersList={coWorcersList} editCoWorker={editCoWorker} />
+      <CoWorkers
+        coWorcersList={coWorcersList}
+        editCoWorker={editCoWorker}
+        delCoWorker={delCoWorker}
+      />
     </div>
   );
 }
