@@ -1,5 +1,4 @@
-import './App.css';
-import { coWorcerType } from './App';
+import { coWorcerType } from '../App';
 import { CoWorker } from './CoWorker';
 
 export type CoWorkersPropsType = {

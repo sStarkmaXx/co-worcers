@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import { CoWorkers } from './CoWorkers';
+import { CoWorkers } from './components/CoWorkers';
+import Header from './components/Header';
 
 export type coWorcerType = {
   id: number;
@@ -20,6 +21,7 @@ function App() {
     useState<Array<coWorcerType>>(initialState);
   return (
     <div className="App">
+      <Header />
       <CoWorkers coWorcersList={coWorcersList} />
     </div>
   );

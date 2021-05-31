@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+  height: 60px;
+  padding-left: 50px;
+  background-color: #b7b7b7;
+  border: solid 1px #676767;
+  align-items: center;
+  font-weight: bolder;
+}
+.name {
+  display: flex;
+  width: 200px;
+}
