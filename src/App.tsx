@@ -34,6 +34,7 @@ function App() {
   const [firstName, setFirstName] = useState<string>('');
   const [lastName, setLastName] = useState<string>('');
   const [selectPersonId, setSelectPersonId] = useState<number>(0);
+  const [error, setError] = useState<string | null>(null);
 
   function createFirstName(e: ChangeEvent<HTMLInputElement>) {
     setFirstName(e.currentTarget.value);
@@ -55,12 +56,16 @@ function App() {
   function addPerson() {
     let newId = listOfPersons.length + 1;
     let newPerson: PersonType = { id: newId, firstName, lastName };
-    let newListOfPersons: Array<PersonType> = listOfPersons.slice();
-    newListOfPersons.unshift(newPerson);
-    setListOfPersons(newListOfPersons);
-    setFirstName('');
-    setLastName('');
-    setModalWindowState({ isOpen: false, title: '' });
+    let newListOfPersons: Array<PersonType> = [newPerson, ...listOfPersons];
+    if (firstName.trim() !== '' && lastName.trim() !== '') {
+      setListOfPersons(newListOfPersons);
+      setFirstName('');
+      setLastName('');
+      setModalWindowState({ isOpen: false, title: '' });
+      setError(null);
+    } else {
+      setError('Пожалуйста заполните все поля');
+    }
   }
 
   function openEditPersonWindow(id: number) {
@@ -72,19 +77,18 @@ function App() {
   }
 
   function saveChangedPerson() {
-    let changedPersone: PersonType = {
-      id: selectPersonId,
-      firstName: firstName,
-      lastName: lastName,
-    };
-    let newListWithCangedPerson = listOfPersons.filter(
-      (c) => c.id !== selectPersonId
+    let newListWithCangedPerson: Array<PersonType> = listOfPersons.map((pers) =>
+      pers.id === selectPersonId ? { ...pers, firstName, lastName } : pers
     );
-    newListWithCangedPerson.push(changedPersone);
-    setListOfPersons(newListWithCangedPerson);
-    setFirstName('');
-    setLastName('');
-    setModalWindowState({ isOpen: false, title: '' });
+    if (firstName.trim() !== '' && lastName.trim() !== '') {
+      setListOfPersons(newListWithCangedPerson);
+      setModalWindowState({ isOpen: false, title: '' });
+      setFirstName('');
+      setLastName('');
+      setError(null);
+    } else {
+      setError('Пожалуйста заполните все поля');
+    }
   }
 
   function delPerson(id: number) {
@@ -100,19 +104,22 @@ function App() {
         hideModalWindow={hideModalWindow}
         createFirstName={createFirstName}
         createLastName={createLastName}
+        error={error}
         func={
           modalWindowState.title === 'Создание сотрудника'
             ? addPerson
             : saveChangedPerson
         }
       />
-      <Header />
-      <Persons
-        listOfPersons={listOfPersons}
-        openEditPersonWindow={openEditPersonWindow}
-        delPerson={delPerson}
-      />
-      <Footer openAddPersonWindow={openAddPersonWindow} />
+      <div className="conteiner">
+        <Header />
+        <Persons
+          listOfPersons={listOfPersons}
+          openEditPersonWindow={openEditPersonWindow}
+          delPerson={delPerson}
+        />
+        <Footer openAddPersonWindow={openAddPersonWindow} />
+      </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@
   display: none;
   justify-content: center;
   align-items: center;
-  width: inherit;
+  width: 100%;
   height: 100vh;
   background-color: #4b4e4d94;
 }
@@ -36,13 +36,15 @@
 .back {
   display: flex;
   height: 50px;
-  padding-left: 20px;
+  padding-left: 10px;
   align-content: center;
+  align-items: center;
 }
 .back button {
   background-color: rgba(0, 0, 139, 0);
   border: none;
   color: black;
+  margin-right: 10px;
 }
 .back button:hover {
   color: blue;
@@ -65,4 +67,9 @@ input {
   width: 300px;
   height: 20px;
   outline: none;
+}
+.errorMessage {
+  display: flex;
+  color: brown;
+  font-weight: bolder;
 }

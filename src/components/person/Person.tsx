@@ -22,10 +22,15 @@ export const Person: React.FC<PersonPropsType> = ({
       <div className={css.name}>{person.firstName}</div>
       <div className={css.name}>{person.lastName}</div>
       <div className={css.btns}>
-        <button onClick={() => openEditPersonWindow(person.id)}>
+        <button
+          className={css.edit}
+          onClick={() => openEditPersonWindow(person.id)}
+        >
           редактировать
         </button>
-        <button onClick={() => delPerson(person.id)}>удалить</button>
+        <button className={css.del} onClick={() => delPerson(person.id)}>
+          удалить
+        </button>
       </div>
     </div>
   );
