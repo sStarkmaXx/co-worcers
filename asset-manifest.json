@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/co-worcers/static/css/main.1195f187.chunk.css",
+    "main.js": "/co-worcers/static/js/main.30a23e18.chunk.js",
+    "main.js.map": "/co-worcers/static/js/main.30a23e18.chunk.js.map",
+    "runtime-main.js": "/co-worcers/static/js/runtime-main.2c07f5ef.js",
+    "runtime-main.js.map": "/co-worcers/static/js/runtime-main.2c07f5ef.js.map",
+    "static/js/2.924cefd7.chunk.js": "/co-worcers/static/js/2.924cefd7.chunk.js",
+    "static/js/2.924cefd7.chunk.js.map": "/co-worcers/static/js/2.924cefd7.chunk.js.map",
+    "static/js/3.94823a53.chunk.js": "/co-worcers/static/js/3.94823a53.chunk.js",
+    "static/js/3.94823a53.chunk.js.map": "/co-worcers/static/js/3.94823a53.chunk.js.map",
+    "index.html": "/co-worcers/index.html",
+    "static/css/main.1195f187.chunk.css.map": "/co-worcers/static/css/main.1195f187.chunk.css.map",
+    "static/js/2.924cefd7.chunk.js.LICENSE.txt": "/co-worcers/static/js/2.924cefd7.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2c07f5ef.js",
+    "static/js/2.924cefd7.chunk.js",
+    "static/css/main.1195f187.chunk.css",
+    "static/js/main.30a23e18.chunk.js"
+  ]
+}
