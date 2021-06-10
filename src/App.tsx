@@ -1,9 +1,10 @@
+import axios from 'axios';
 import React, { ChangeEvent, useState } from 'react';
 import './App.css';
 import { Footer } from './components/footer/Footer';
 import Header from './components/header/Header';
 import { ModalWindow } from './components/modalwindow/ModalWindow';
-import { Persons } from './components/persons/Persons';
+import { PersonsContainer } from './components/persons/PersonsContainer';
 
 export type PersonType = {
   id: number;
@@ -24,8 +25,7 @@ let initialState: Array<PersonType> = [
 ];
 
 function App() {
-  const [listOfPersons, setListOfPersons] =
-    useState<Array<PersonType>>(initialState);
+  const [listOfPersons, setListOfPersons] = useState<Array<PersonType>>([]);
 
   const [modalWindowState, setModalWindowState] = useState<ModalWindowsState>({
     isOpen: false,
@@ -35,6 +35,10 @@ function App() {
   const [lastName, setLastName] = useState<string>('');
   const [selectPersonId, setSelectPersonId] = useState<number>(0);
   const [error, setError] = useState<string | null>(null);
+
+  function getPersons(persons: Array<PersonType>) {
+    setListOfPersons(persons);
+  }
 
   function createFirstName(e: ChangeEvent<HTMLInputElement>) {
     setFirstName(e.currentTarget.value);
@@ -56,13 +60,24 @@ function App() {
   function addPerson() {
     let newId = listOfPersons.length + 1;
     let newPerson: PersonType = { id: newId, firstName, lastName };
-    let newListOfPersons: Array<PersonType> = [newPerson, ...listOfPersons];
     if (firstName.trim() !== '' && lastName.trim() !== '') {
-      setListOfPersons(newListOfPersons);
-      setFirstName('');
-      setLastName('');
-      setModalWindowState({ isOpen: false, title: '' });
-      setError(null);
+      axios
+        .post('http://localhost:3004/persons', newPerson)
+        .then((response) => {
+          newPerson = response.data;
+          let newListOfPersons: Array<PersonType> = [
+            ...listOfPersons,
+            newPerson,
+          ];
+          setListOfPersons(newListOfPersons);
+          setFirstName('');
+          setLastName('');
+          setModalWindowState({ isOpen: false, title: '' });
+          setError(null);
+        })
+        .catch((error) => {
+          alert(error);
+        });
     } else {
       setError('Пожалуйста заполните все поля');
     }
@@ -81,17 +96,34 @@ function App() {
       pers.id === selectPersonId ? { ...pers, firstName, lastName } : pers
     );
     if (firstName.trim() !== '' && lastName.trim() !== '') {
-      setListOfPersons(newListWithCangedPerson);
-      setModalWindowState({ isOpen: false, title: '' });
-      setFirstName('');
-      setLastName('');
-      setError(null);
+      axios
+        .put(`http://localhost:3004/persons/${selectPersonId}`, {
+          id: null,
+          firstName,
+          lastName,
+        })
+        .then((response) => {
+          setListOfPersons(newListWithCangedPerson);
+          setModalWindowState({ isOpen: false, title: '' });
+          setFirstName('');
+          setLastName('');
+          setError(null);
+        })
+        .catch((error) => {
+          alert(error);
+        });
     } else {
       setError('Пожалуйста заполните все поля');
     }
   }
 
   function delPerson(id: number) {
+    axios
+      .delete(`http://localhost:3004/persons/${id}`)
+      .then()
+      .catch((error) => {
+        alert(error);
+      });
     let newListOfPersons = listOfPersons.filter((c) => c.id !== id);
     setListOfPersons(newListOfPersons);
   }
@@ -113,11 +145,13 @@ function App() {
       />
       <div className="conteiner">
         <Header />
-        <Persons
+        <PersonsContainer
           listOfPersons={listOfPersons}
           openEditPersonWindow={openEditPersonWindow}
           delPerson={delPerson}
+          getPersons={getPersons}
         />
+
         <Footer openAddPersonWindow={openAddPersonWindow} />
       </div>
     </div>

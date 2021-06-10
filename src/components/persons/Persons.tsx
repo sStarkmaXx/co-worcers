@@ -2,13 +2,13 @@ import { PersonType } from '../../App';
 import { Person } from '../person/Person';
 import css from './Persons.module.css';
 
-export type CoWorkersPropsType = {
+export type PersonsPropsType = {
   listOfPersons: Array<PersonType>;
   openEditPersonWindow: (id: number) => void;
   delPerson: (id: number) => void;
 };
 
-export const Persons: React.FC<CoWorkersPropsType> = ({
+export const Persons: React.FC<PersonsPropsType> = ({
   listOfPersons,
   openEditPersonWindow,
   delPerson,
